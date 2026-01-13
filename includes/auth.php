@@ -7,7 +7,7 @@ function login($username, $password) {
     global $pdo;
 
     $stmt = $pdo->prepare('SELECT * FROM users WHERE  username = ? AND is_active = 1');
-    $stmt->execute(['username' => $username]);
+    $stmt->execute([$username]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$user) {
@@ -29,28 +29,29 @@ function login($username, $password) {
 }
 
 function isLoggedIn () {
-    if (!$_SESSION['user_id']) {
-        return false;
-    }
-
-    return true;
-
+    return isset($_SESSION['user_id']);
 }
 
 function requireLogin () {
-    isLoggedIn();
 
-
+    if(!isLoggedIn()) {
+        header("Location: index.php");
+        exit();
+    }
+    return true;
 }
 
-
-
-
 function checkRole ($allowed_roles) {
-    
+    $role = $_SESSION['role'];
+
+    if (!in_array($role, $allowed_roles)) {
+        header("Location: " .$role . "_dashboard.php");
+        exit();    
+    }
 }
 
 function logout () {
     session_destroy();
     header('Location: index.php');
+    exit();
 }
