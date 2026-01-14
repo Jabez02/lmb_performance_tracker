@@ -51,33 +51,8 @@
     }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="icon" href="img/denr.png">
-</head>
-<body>
-    <h1>Login</h1>
-     
-    <?php if(!empty($errors)):?>
-        <?php foreach($errors as $error) :?>
-            <div style="color: red;">
-                <p><?php echo htmlspecialchars($error); ?></p>
-            </div>
-        <?php endforeach ;?>
-    <?php endif; ?>
-
-    <form action="" method="POST">
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username" value="<?php echo htmlspecialchars($username); ?>">
-
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password">
-
-        <button type="submit">Login</button>
-    </form>
-</body>
-</html>
+<?php 
+    include_once 'includes/header.php';
+    include_once 'views/login_view.php';
+    include_once 'includes/footer.php';
+?>
